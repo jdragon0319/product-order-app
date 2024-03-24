@@ -10,7 +10,7 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 class ProductTest {
 
 
-    @DisplayName("상품명에 컴마가 있는 상품 생성")
+    @DisplayName("상품명에 컴마,쌍따옴표가 있는 상품 생성")
     @Test
     void containsComma() {
         Product product = Product.of("779049,\"[리퍼브/키친마켓] Fabrik Pottery Cup, Saucer (단품)\",10000,64");

@@ -40,19 +40,19 @@ class StockCommandServiceFacadeMultiThreadIT {
         );
 
         int count = 100;
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        ExecutorService executorService = Executors.newFixedThreadPool(50);
         CountDownLatch countDownLatch = new CountDownLatch(count);
 
         for (int i = 1; i <= count; i++) {
             executorService.submit(() -> {
                 // 상품의 총 재고 100개, 1개씩 주문시도
                 try {
-                    //stockService.deductStocks(orderProducts);
                     stockServiceFacade.deductStocks(requests);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
+                } finally {
+                    countDownLatch.countDown();
                 }
-                countDownLatch.countDown();
             });
         }
 
@@ -74,8 +74,8 @@ class StockCommandServiceFacadeMultiThreadIT {
 
         assertThatExceptionOfType(ExecutionException.class)
                 .isThrownBy(() -> {
-                    int count = 101;
-                    ExecutorService executorService = Executors.newFixedThreadPool(10);
+                    int count = 130;
+                    ExecutorService executorService = Executors.newFixedThreadPool(50);
                     CountDownLatch countDownLatch = new CountDownLatch(count);
                     for (int i = 1; i <= count; i++) {
                         try {
@@ -85,8 +85,9 @@ class StockCommandServiceFacadeMultiThreadIT {
                                     stockServiceFacade.deductStocks(requests);
                                 } catch (InterruptedException e) {
                                     throw new RuntimeException(e);
+                                } finally {
+                                    countDownLatch.countDown();
                                 }
-
                             });
                             Object o = submit.get();
                         } catch (ExecutionException e) {
@@ -94,7 +95,6 @@ class StockCommandServiceFacadeMultiThreadIT {
                             System.out.println(e);
                             throw e;
                         }
-                        countDownLatch.countDown();
                     }
                     countDownLatch.await();
                 })

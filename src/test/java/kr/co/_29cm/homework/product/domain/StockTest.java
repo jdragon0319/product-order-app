@@ -1,4 +1,4 @@
-package kr.co._29cm.homework.stock.domain;
+package kr.co._29cm.homework.product.domain;
 
 
 import kr.co._29cm.homework.product.domain.Stock;
