@@ -9,7 +9,6 @@ import kr.co._29cm.homework.view.output.OutputView;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 
 @Component
 @Profile("!test")

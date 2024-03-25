@@ -1,7 +1,7 @@
 package kr.co._29cm.homework.order.domain;
 
 import jakarta.persistence.*;
-import kr.co._29cm.homework.order.dto.OrderSaveRequest;
+import kr.co._29cm.homework.order.dto.OrderProductResponse;
 import lombok.*;
 
 import java.util.List;
@@ -23,10 +23,10 @@ public class Order {
     @Embedded
     private OrderProducts orderProducts;
 
-    public static Order of(OrderSaveRequest request) {
+    public static Order of(List<OrderProductResponse> orderProductResponses) {
         Order order = new Order();
         order.status = OrderStatus.START;
-        OrderProducts orderProducts = OrderProducts.of(request.orderProductResponseList());
+        OrderProducts orderProducts = OrderProducts.of(orderProductResponses);
         order.addOrderProductList(orderProducts);
         return order;
     }

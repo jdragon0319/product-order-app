@@ -10,9 +10,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class OrderTest {
 
-    @DisplayName("주문생성")
+    @DisplayName("OrderProductResponse 목록으로 주문생성")
+    void createByOrderProductResponse() {
+        List<OrderProductResponse> orderProductList = List.of(
+                OrderProductResponse.of(1L, "[29Edition.]_[스페셜구성] 뉴코튼베이직 브라렛 세트 (브라1+팬티2)", 20000, 3),
+                OrderProductResponse.of(1L, "[29Edition.]_[스페셜구성] 뉴코튼베이직 브라렛 세트 (브라1+팬티2)", 20000, 6)
+        );
+        Order order = Order.of(orderProductList);
+
+        assertThat(order.getOrderProductList().size()).isEqualTo(1);
+    }
+
+    @DisplayName("OrderProduct 목록으로 주문생성")
     @Test
-    void create() {
+    void createByOrderProduct() {
         List<OrderProduct> orderProductList = List.of(
                 OrderProduct.of(1L, "[29Edition.]_[스페셜구성] 뉴코튼베이직 브라렛 세트 (브라1+팬티2)", 20000, 3),
                 OrderProduct.of(2L, "[29Edition.]_[스페셜구성] 렉시 브라렛 세트(브라1+팬티2)", 10000, 6)
@@ -42,9 +53,8 @@ class OrderTest {
                 OrderProductResponse.of(1L, "[29Edition.]_[스페셜구성] 뉴코튼베이직 브라렛 세트 (브라1+팬티2)", 20000, 3),
                 OrderProductResponse.of(1L, "[29Edition.]_[스페셜구성] 뉴코튼베이직 브라렛 세트 (브라1+팬티2)", 20000, 6)
         );
-        Order order = Order.of(OrderProducts.of(orderProductList));
+        Order order = Order.of(orderProductList);
 
-        assertThat(order.getOrderProductList().size()).isEqualTo(1);
         OrderProduct orderProduct = order.getOrderProductList().get(0);
         assertThat(orderProduct.getQuantity()).isEqualTo(9);
     }
