@@ -13,6 +13,9 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import static kr.co._29cm.homework.order.domain.FeeConstants.DELIVERY_FEE;
+import static kr.co._29cm.homework.order.domain.FeeConstants.LIMIT_CHARGED_DELIVERY_FEE;
+
 @Getter
 @Embeddable
 @NoArgsConstructor
@@ -38,8 +41,8 @@ public class OrderProducts {
 
     public Integer calculateTotalPrice() {
         Integer sumProductPrice = calculateProductPrice();
-        if (sumProductPrice < 50000) {
-            return sumProductPrice + 2500;
+        if (sumProductPrice < LIMIT_CHARGED_DELIVERY_FEE) {
+            return sumProductPrice + DELIVERY_FEE;
         }
         return sumProductPrice;
     }

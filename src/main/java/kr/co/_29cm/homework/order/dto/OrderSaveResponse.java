@@ -4,6 +4,9 @@ import lombok.Builder;
 
 import java.util.List;
 
+import static kr.co._29cm.homework.order.domain.FeeConstants.DELIVERY_FEE;
+import static kr.co._29cm.homework.order.domain.FeeConstants.LIMIT_CHARGED_DELIVERY_FEE;
+
 public record OrderSaveResponse(
         Long orderId,
         List<OrderProductSaveResponse> orderProductSaveResponseList
@@ -38,15 +41,15 @@ public record OrderSaveResponse(
 
     public Integer calculateTotalPrice() {
         Integer sumProductPrice = calculateProductPrice();
-        if (sumProductPrice < 50000) {
-            return sumProductPrice + 2500;
+        if (sumProductPrice < LIMIT_CHARGED_DELIVERY_FEE) {
+            return sumProductPrice + DELIVERY_FEE;
         }
         return sumProductPrice;
     }
 
     public Integer calculateShippingCharge() {
-        if (calculateProductPrice() < 50000)
-            return 2500;
+        if (calculateProductPrice() < LIMIT_CHARGED_DELIVERY_FEE)
+            return DELIVERY_FEE;
         return 0;
     }
 }
