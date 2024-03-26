@@ -9,6 +9,7 @@ import kr.co._29cm.homework.product.exception.SoldOutException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.util.ResourceUtils;
 
 import java.io.IOException;
@@ -16,11 +17,13 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
 class ProductServiceTest {
 
     private final FakeProductRepository repository = new FakeProductRepository();
-    private final ProductCommandService productCommandService = new ProductCommandService(repository);
+    private final NamedParameterJdbcTemplate jdbcTemplate = mock(NamedParameterJdbcTemplate.class);
+    private final ProductCommandService productCommandService = new ProductCommandService(repository, jdbcTemplate);
     private final ProductQueryService productQueryService = new ProductQueryService(repository);
 
     @BeforeEach
