@@ -27,10 +27,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class OrderProcessHandlerTest {
+class OrderProcessServiceTest {
     @Autowired
     @InjectMocks
-    private OrderProcessHandler orderProcessHandler;
+    private OrderProcessService orderProcessService;
     @Autowired
     private ProductRepository productRepository;
     @Autowired
@@ -56,7 +56,7 @@ class OrderProcessHandlerTest {
         );
         Order savedOrder = orderRepository.save(Order.of(new OrderProducts(orderProductList)));
 
-        orderProcessHandler.order(savedOrder.getId());
+        orderProcessService.order(savedOrder.getId());
 
         Stock stock = stockRepository.findById(3L).get();
         assertThat(stock.getQuantity()).isEqualTo(95);
@@ -72,7 +72,7 @@ class OrderProcessHandlerTest {
         Order savedOrder = orderRepository.save(Order.of(new OrderProducts(orderProductList)));
 
         try {
-            orderProcessHandler.order(savedOrder.getId());
+            orderProcessService.order(savedOrder.getId());
         } catch (FailedPayException e) {
             System.out.println("fail");
         }

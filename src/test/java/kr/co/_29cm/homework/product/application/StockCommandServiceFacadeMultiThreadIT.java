@@ -7,7 +7,6 @@ import kr.co._29cm.homework.product.dto.StockRequests;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -15,18 +14,17 @@ import java.util.List;
 import java.util.concurrent.*;
 
 import static kr.co._29cm.homework.product.exception.StockExceptionMessages.SOLD_OUT_STOCK;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @SpringBootTest
 @ActiveProfiles("test")
 class StockCommandServiceFacadeMultiThreadIT {
 
     @Autowired
-    private StockServiceFacade stockServiceFacade;
+    private StockServiceHandler stockServiceHandler;
 
     @Autowired
-    @Qualifier("productRepository")
     private ProductRepository repository;
 
     @DisplayName("재고 감소 성공")
@@ -47,7 +45,7 @@ class StockCommandServiceFacadeMultiThreadIT {
             executorService.submit(() -> {
                 // 상품의 총 재고 100개, 1개씩 주문시도
                 try {
-                    stockServiceFacade.deductStocks(requests);
+                    stockServiceHandler.deductStocks(requests);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 } finally {
@@ -82,7 +80,7 @@ class StockCommandServiceFacadeMultiThreadIT {
                             Future<?> submit = executorService.submit(() -> {
                                 // 상품의 총 재고 100개, 1개씩 주문시도
                                 try {
-                                    stockServiceFacade.deductStocks(requests);
+                                    stockServiceHandler.deductStocks(requests);
                                 } catch (InterruptedException e) {
                                     throw new RuntimeException(e);
                                 } finally {

@@ -5,7 +5,6 @@ import kr.co._29cm.homework.product.domain.ProductRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.util.ResourceUtils;
@@ -22,7 +21,6 @@ class ProductServiceIT {
     private ProductCommandService productService;
 
     @Autowired
-    @Qualifier("productRepository")
     private ProductRepository productRepository;
 
     @DisplayName("상품 데이터셋 초기화")

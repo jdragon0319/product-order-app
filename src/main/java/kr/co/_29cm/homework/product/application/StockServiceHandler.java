@@ -2,14 +2,14 @@ package kr.co._29cm.homework.product.application;
 
 import kr.co._29cm.homework.product.dto.StockRequests;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
-public class StockServiceFacade {
+@Component
+public class StockServiceHandler {
 
     private final StockCommandService stockCommandService;
 
-    public StockServiceFacade(StockCommandService stockCommandService) {
+    public StockServiceHandler(StockCommandService stockCommandService) {
         this.stockCommandService = stockCommandService;
     }
 

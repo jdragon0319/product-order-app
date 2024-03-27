@@ -1,7 +1,7 @@
 package kr.co._29cm.homework;
 
 import kr.co._29cm.homework.order.application.OrderHandler;
-import kr.co._29cm.homework.order.application.OrderProcessHandler;
+import kr.co._29cm.homework.order.application.OrderProcessService;
 import kr.co._29cm.homework.order.dto.OrderSaveResponse;
 import kr.co._29cm.homework.product.application.ProductCommandService;
 import kr.co._29cm.homework.view.input.InputView;
@@ -16,16 +16,16 @@ public class ProductOrderRunner implements CommandLineRunner {
 
     private final ProductCommandService productCommandService;
     private final OrderHandler orderHandler;
-    private final OrderProcessHandler orderProcessHandler;
+    private final OrderProcessService orderProcessService;
 
     public ProductOrderRunner(
             ProductCommandService productCommandService,
             OrderHandler orderHandler,
-            OrderProcessHandler orderProcessHandler
+            OrderProcessService orderProcessService
     ) {
         this.productCommandService = productCommandService;
         this.orderHandler = orderHandler;
-        this.orderProcessHandler = orderProcessHandler;
+        this.orderProcessService = orderProcessService;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ProductOrderRunner implements CommandLineRunner {
                 OrderSaveResponse response = orderHandler.createOrder();
                 OutputView.printOrderResult(response);
                 try {
-                    orderProcessHandler.order(response.orderId());
+                    orderProcessService.order(response.orderId());
                 } catch (Exception e) {
                     OutputView.printException(e.getMessage());
                 }
