@@ -2,7 +2,6 @@ package kr.co._29cm.homework.product.application;
 
 import kr.co._29cm.homework.product.domain.Product;
 import kr.co._29cm.homework.product.domain.ProductRepository;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
@@ -17,11 +16,9 @@ import java.util.List;
 public class ProductCommandService {
 
     private final ProductRepository productRepository;
-    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    public ProductCommandService(ProductRepository productRepository, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public ProductCommandService(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
     @Transactional

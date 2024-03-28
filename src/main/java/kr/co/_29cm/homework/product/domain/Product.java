@@ -15,7 +15,7 @@ public class Product {
     private String name;
     private Integer price;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @PrimaryKeyJoinColumn
     private Stock stock;
 
@@ -40,7 +40,7 @@ public class Product {
                 .name(name)
                 .price(price)
                 .stock(Stock.builder()
-                        .productId(id)
+                        .id(id)
                         .quantity(quantity)
                         .build())
                 .build();

@@ -1,13 +1,12 @@
 package kr.co._29cm.homework.product.domain;
 
 
-import kr.co._29cm.homework.product.domain.Stock;
 import kr.co._29cm.homework.product.exception.SoldOutException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class StockTest {
 
@@ -17,7 +16,7 @@ class StockTest {
         Stock stock = Stock.of(1L, 100);
 
         assertThatExceptionOfType(SoldOutException.class)
-                .isThrownBy( () -> stock.checkStocks(103));
+                .isThrownBy(() -> stock.checkStocks(103));
     }
 
     @DisplayName("재고 감소")

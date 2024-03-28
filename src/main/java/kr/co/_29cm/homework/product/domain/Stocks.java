@@ -30,7 +30,7 @@ public class Stocks {
     public void deductStocks(StockRequests requests) {
         validate(requests.stockRequestList());
         for (Stock stock : stockList) {
-            StockRequest request = requests.getStockRequest(stock.getProductId());
+            StockRequest request = requests.getStockRequest(stock.getId());
             stock.checkStocks(request.quantity());
             stock.deduct(request.quantity());
         }
@@ -44,7 +44,7 @@ public class Stocks {
 
     public void plusStocks(StockRequests requests) {
         for (Stock stock : stockList) {
-            StockRequest request = requests.getStockRequest(stock.getProductId());
+            StockRequest request = requests.getStockRequest(stock.getId());
             stock.plus(request.quantity());
         }
     }

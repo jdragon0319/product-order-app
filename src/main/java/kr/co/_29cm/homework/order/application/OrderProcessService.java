@@ -41,6 +41,7 @@ public class OrderProcessService {
         stockServiceHandler.deductStocks(requests);
         boolean paymentResult = paymentService.payment(orderId, order.getTotalPrice());
         if (!paymentResult) {
+            order.updateStatus(OrderStatus.FAILED);
             rollbackStocks(requests, orderId);
         }
         order.updateStatus(OrderStatus.COMPLETE);

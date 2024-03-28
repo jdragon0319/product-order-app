@@ -17,7 +17,7 @@ import static kr.co._29cm.homework.product.exception.StockExceptionMessages.SOLD
 @AllArgsConstructor
 public class Stock {
     @Id
-    private Long productId;
+    private Long id;
     private Integer quantity;
 
     @Version
@@ -25,7 +25,7 @@ public class Stock {
 
     public static Stock of(Long id, Integer quantity) {
         return Stock.builder()
-                .productId(id)
+                .id(id)
                 .quantity(quantity)
                 .build();
     }

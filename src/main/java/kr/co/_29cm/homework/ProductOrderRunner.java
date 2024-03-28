@@ -34,16 +34,16 @@ public class ProductOrderRunner implements CommandLineRunner {
 
         while (true) {
             OutputView.printCommand();
-            String input = InputView.input();
-            if (isOrderAction(input)) {
-                OrderSaveResponse response = orderHandler.createOrder();
-                OutputView.printOrderResult(response);
+            String inputAction = InputView.input();
+            if (isOrderAction(inputAction)) {
                 try {
-                    orderProcessService.order(response.orderId());
+                    OrderSaveResponse orderResponse = orderHandler.createOrder();
+                    OutputView.printOrderResult(orderResponse);
+                    orderProcessService.order(orderResponse.orderId());
                 } catch (Exception e) {
                     OutputView.printException(e.getMessage());
                 }
-            } else if (isEndAction(input)) {
+            } else if (isEndAction(inputAction)) {
                 OutputView.printOrderEnd();
                 return;
             } else {

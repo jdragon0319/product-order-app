@@ -8,8 +8,6 @@ import kr.co._29cm.homework.order.dto.OrderSaveResponse;
 import kr.co._29cm.homework.order.exception.EmptyOrderProductException;
 import kr.co._29cm.homework.order.exception.InputOrderException;
 import kr.co._29cm.homework.product.application.ProductQueryService;
-import kr.co._29cm.homework.product.domain.Product;
-import kr.co._29cm.homework.product.exception.SoldOutException;
 import kr.co._29cm.homework.view.input.InputView;
 import kr.co._29cm.homework.view.output.OutputView;
 import org.springframework.stereotype.Component;
@@ -44,7 +42,7 @@ public class OrderHandler {
                 }
                 OrderProductResponse response = productQueryService.getOrderProductInfo(req);
                 orderProducts.add(response);
-            } catch (SoldOutException | EntityNotFoundException | EmptyOrderProductException e) {
+            } catch(EntityNotFoundException | EmptyOrderProductException e) {
                 OutputView.printException(e.getMessage());
             } catch (InputOrderException | NumberFormatException e) {
                 OutputView.retryMessage();
@@ -56,8 +54,7 @@ public class OrderHandler {
     }
 
     private void printProductList() {
-        List<Product> allProductList = productQueryService.findAll();
-        OutputView.printProducts(allProductList);
+        OutputView.printProducts(productQueryService.findAll());
     }
 
     private OrderProductRequest createOrderProductRequest() {

@@ -21,4 +21,5 @@ public class OrderQueryService {
         return orderRepository.findById(id)
                 .orElseThrow((() -> new EntityNotFoundException(NOT_FOUND_ORDER.formatted(id))));
     }
+
 }

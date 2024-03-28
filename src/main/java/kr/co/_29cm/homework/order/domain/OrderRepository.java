@@ -12,4 +12,5 @@ public interface OrderRepository extends Repository<Order, Long> {
 
     @Query(value = "select o from Order o join fetch o.orderProducts where o.id = :id")
     Optional<Order> findById(@Param("id") Long id);
+
 }
